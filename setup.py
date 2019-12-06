@@ -29,10 +29,14 @@ extras_require = {
     'docs': [
         'Sphinx>=1.5.1',
     ],
+    # tika processor
+    'tika': [
+        'tika>=1.22',
+    ],
     'tests': tests_require,
+    'all': []
 }
 
-extras_require['all'] = []
 for reqs in extras_require.values():
     extras_require['all'].extend(reqs)
 

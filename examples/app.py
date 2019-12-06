@@ -51,6 +51,7 @@ SPHINX-END
 
 from __future__ import absolute_import, print_function
 
+import pprint
 import click
 from flask import Flask, jsonify
 from flask_babelex import Babel
@@ -80,7 +81,7 @@ def process(processor_name, file_path):
 
         results = processor.process(file=file_path)
 
-        click.echo(results)
+        click.echo(pprint.pformat(results))
     except ProcessorError as exception:
         raise click.ClickException(exception)
 

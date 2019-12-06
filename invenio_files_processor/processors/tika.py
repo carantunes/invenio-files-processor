@@ -10,7 +10,13 @@
 
 from __future__ import absolute_import, print_function
 
+from tika import parser
+from invenio_files_processor.config import FILES_PROCESSOR_TIKA_SERVER_ENDPOINT
 from invenio_files_processor.processors.processor import ProcessorInterface
+
+# Tika configuration
+TIKA_SERVER_ENDPOINT = FILES_PROCESSOR_TIKA_SERVER_ENDPOINT
+TIKA_CLIENT_ONLY = True
 
 
 class TikaProcessor(ProcessorInterface):
@@ -28,6 +34,6 @@ class TikaProcessor(ProcessorInterface):
         """Process the file with Tika."""
         ProcessorInterface.check_valid_file(file)
 
-        return dict(
-            content="TODO"
-        )
+        parsed = parser.from_file(file)
+
+        return parsed
