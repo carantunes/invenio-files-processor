@@ -72,23 +72,9 @@ setup(
         'invenio_base.apps': [
             'invenio_files_processor = invenio_files_processor:InvenioFilesProcessor',
         ],
-        'invenio_base.blueprints': [
-            'invenio_files_processor = invenio_files_processor.views:blueprint',
-        ],
-        'invenio_i18n.translations': [
-            'messages = invenio_files_processor',
-        ],
-        # TODO: Edit these entry points to fit your needs.
-        # 'invenio_access.actions': [],
-        # 'invenio_admin.actions': [],
-        # 'invenio_assets.bundles': [],
-        # 'invenio_base.api_apps': [],
-        # 'invenio_base.api_blueprints': [],
-        # 'invenio_base.blueprints': [],
-        # 'invenio_celery.tasks': [],
-        # 'invenio_db.models': [],
-        # 'invenio_pidstore.minters': [],
-        # 'invenio_records.jsonresolver': [],
+        'invenio_files_processor': [
+            'tika = invenio_files_processor.processors.tika:TikaProcessor'
+        ]
     },
     extras_require=extras_require,
     install_requires=install_requires,
