@@ -12,6 +12,8 @@ import os
 
 from setuptools import find_packages, setup
 
+from invenio_files_processor.processors.tika import TikaProcessor
+
 readme = open('README.rst').read()
 history = open('CHANGES.rst').read()
 
@@ -31,10 +33,16 @@ extras_require = {
     ],
     # tika processor
     'tika': [
-        'tika>=1.22',
+        # 'tika>=1.22',
+
+        # TODO: replace after
+        #  https://github.com/chrismattmann/tika-python/pull/240 is merged
+        'tika @ git+https://github.com/prough21/tika-python@5cf3452887b2a0a181387548d360d3503f6713dc#egg=tika'
     ],
     'tests': tests_require,
-    'all': []
+    'all': [
+        'invenio-files-rest>=1.0.6'
+    ]
 }
 
 for reqs in extras_require.values():
@@ -47,6 +55,7 @@ setup_requires = [
 
 install_requires = [
     'Flask-BabelEx>=0.9.3',
+    'blinker>=1.4'
 ]
 
 packages = find_packages()
@@ -74,10 +83,12 @@ setup(
     platforms='any',
     entry_points={
         'invenio_base.apps': [
-            'invenio_files_processor = invenio_files_processor:InvenioFilesProcessor',
+            'invenio_files_processor = '
+            'invenio_files_processor:InvenioFilesProcessor',
         ],
         'invenio_files_processor': [
-            'tika = invenio_files_processor.processors.tika:TikaProcessor'
+            f'{TikaProcessor.id()} = '
+            f'invenio_files_processor.processors.tika:TikaProcessor '
         ]
     },
     extras_require=extras_require,
@@ -92,10 +103,9 @@ setup(
         'Programming Language :: Python',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Software Development :: Libraries :: Python Modules',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Development Status :: 1 - Planning',
     ],
 )
