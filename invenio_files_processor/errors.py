@@ -21,14 +21,14 @@ class DuplicatedProcessor(ProcessorError):
     """Processor is already registered."""
 
     def __str__(self):
-        return "Processor {0} is already registered.".format(self.processor)
+        return f"Processor {self.processor} is already registered."
 
 
 class UnsupportedProcessor(ProcessorError):
     """Processor is not supported."""
 
     def __str__(self):
-        return "Processor {0} is not supported.".format(self.processor)
+        return f"Processor {self.processor} is not supported."
 
 
 class InvalidProcessor(ProcessorError):
@@ -40,7 +40,5 @@ class InvalidProcessor(ProcessorError):
         super().__init__(processor)
 
     def __str__(self):
-        return "Processor {0} can not be applied to file.".format(
-            self.processor,
-            self.file
-        )
+        return f"Processor {self.processor} " \
+               f"can't be applied to file {self.file}."

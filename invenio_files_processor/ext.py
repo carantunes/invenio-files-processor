@@ -11,10 +11,10 @@
 from __future__ import absolute_import, print_function
 
 import pkg_resources
-from flask_babelex import gettext as _
 
 from invenio_files_processor.errors import DuplicatedProcessor, \
     UnsupportedProcessor
+
 from . import config
 
 
@@ -48,7 +48,7 @@ class _InvenioFilesProcessorState(object):
         """Register a processor."""
         if name in self.processors:
             raise DuplicatedProcessor(name)
-        self.processors[name] = processor
+        self.processors[name] = processor()
 
     def get_processor(self, processor_name=None):
         """Get processor."""

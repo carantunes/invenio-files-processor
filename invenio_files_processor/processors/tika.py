@@ -10,30 +10,37 @@
 
 from __future__ import absolute_import, print_function
 
+import re
+
+from invenio_files_rest.models import FileInstance, ObjectVersion
+from invenio_files_rest.storage import FileStorage
 from tika import parser
+
 from invenio_files_processor.config import FILES_PROCESSOR_TIKA_SERVER_ENDPOINT
 from invenio_files_processor.processors.processor import ProcessorInterface
 
 # Tika configuration
 TIKA_SERVER_ENDPOINT = FILES_PROCESSOR_TIKA_SERVER_ENDPOINT
 TIKA_CLIENT_ONLY = True
+READ_MODE_BINARY = 'rb'
+PROCESSOR_ID = 'tika'
 
 
 class TikaProcessor(ProcessorInterface):
     """Tika processor."""
 
     @staticmethod
-    def can_process(file, *args, **kwargs):
-        """Check if given file can be processed."""
-        ProcessorInterface.check_valid_file(file)
+    def id():
+        return PROCESSOR_ID
 
+    def _can_process(self, obj: ObjectVersion, **kwargs):
+        """Check if given file can be processed."""
         return True
 
-    @staticmethod
-    def process(file, *args, **kwargs):
+    def _process(self, obj: ObjectVersion, **kwargs):
         """Process the file with Tika."""
-        ProcessorInterface.check_valid_file(file)
+        file = obj.file  # type: FileInstance
+        storage = file.storage(**kwargs)  # type: FileStorage
+        fp = storage.open(mode=READ_MODE_BINARY)
 
-        parsed = parser.from_file(file)
-
-        return parsed
+        return parser.from_file(fp)
