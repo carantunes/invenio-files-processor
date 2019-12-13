@@ -72,11 +72,7 @@ class InvenioFilesProcessor(object):
         entry_point_group='invenio_files_processor',
         **kwargs
     ):
-        """Flask application initialization.
-
-        :param app: An instance of :class:`~flask.app.Flask`.
-        :param entry_point_group:
-        """
+        """Flask application initialization."""
         self.init_config(app)
 
         state = _InvenioFilesProcessorState(

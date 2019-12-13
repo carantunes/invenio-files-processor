@@ -7,11 +7,12 @@
 # details.
 
 """Test example app."""
-
+import json
 import os
 import signal
 import subprocess
 import time
+from http import HTTPStatus
 from os.path import abspath, dirname, join
 
 import pytest
@@ -25,6 +26,8 @@ def example_app():
     # Go to example directory
     project_dir = dirname(dirname(abspath(__file__)))
     exampleapp_dir = join(project_dir, 'examples')
+    print(exampleapp_dir)
+
     os.chdir(exampleapp_dir)
 
     # Setup application
@@ -50,8 +53,11 @@ def example_app():
     os.chdir(current_dir)
 
 
-def test_example_app_role_admin(example_app):
+def test_example_app_process_tika(example_app):
     """Test example app."""
-    cmd = 'curl http://0.0.0.0:5000/'
-    output = subprocess.check_output(cmd, shell=True)
-    assert b'Welcome to Invenio-Files-Processor' in output
+    cmd = 'curl http://0.0.0.0:5000/process/tika/sample.pdf'
+    output = json.loads(
+        subprocess.check_output(cmd, shell=True).decode('utf-8'))
+    assert output['status'] == HTTPStatus.OK
+    assert 'metadata' in output
+    assert 'content' in output

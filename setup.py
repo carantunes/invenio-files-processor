@@ -23,7 +23,7 @@ tests_require = [
     'isort>=4.3.3',
     'pydocstyle>=2.0.0',
     'pytest-cov>=2.5.1',
-    'pytest-pep8>=1.0.6',
+    'pytest-pycodestyle>=2.0.0',
     'pytest-invenio>=1.0.5',
 ]
 
@@ -88,7 +88,7 @@ setup(
         ],
         'invenio_files_processor': [
             f'{TikaProcessor.id()} = '
-            f'invenio_files_processor.processors.tika:TikaProcessor '
+            f'invenio_files_processor.processors.tika:TikaProcessor'
         ]
     },
     extras_require=extras_require,

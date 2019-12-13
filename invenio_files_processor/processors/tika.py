@@ -31,6 +31,7 @@ class TikaProcessor(ProcessorInterface):
 
     @staticmethod
     def id():
+        """Tika identifier."""
         return PROCESSOR_ID
 
     def _can_process(self, obj: ObjectVersion, **kwargs):

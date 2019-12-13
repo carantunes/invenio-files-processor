@@ -12,8 +12,3 @@ API Docs
 .. automodule:: invenio_files_processor.ext
    :members:
 
-Views
------
-
-.. automodule:: invenio_files_processor.views
-   :members:

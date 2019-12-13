@@ -14,15 +14,11 @@ fixtures are available.
 
 from __future__ import absolute_import, print_function
 
-import shutil
-import tempfile
-
 import pytest
 from flask import Flask
 from flask_babelex import Babel
 
 from invenio_files_processor import InvenioFilesProcessor
-from invenio_files_processor.views import blueprint
 
 
 @pytest.fixture(scope='module')
@@ -42,6 +38,5 @@ def create_app(instance_path):
         app.config.update(**config)
         Babel(app)
         InvenioFilesProcessor(app)
-        app.register_blueprint(blueprint)
         return app
     return factory

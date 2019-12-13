@@ -22,6 +22,7 @@ class ProcessorInterface(ABC):
     """Generic processor interface."""
 
     def process(self, obj: ObjectVersion, **kwargs):
+        """Process the file."""
         ProcessorInterface.check_valid_file(obj)
 
         if not self._can_process(obj=obj, **kwargs):
@@ -40,6 +41,7 @@ class ProcessorInterface(ABC):
 
     @staticmethod
     def check_valid_file(obj: ObjectVersion):
+        """Check if file is valid."""
         is_valid = (
             isinstance(obj, ObjectVersion)
             and isinstance(obj.file, FileInstance)
@@ -51,16 +53,15 @@ class ProcessorInterface(ABC):
     @staticmethod
     @abstractmethod
     def id():
-        """Check if given file can be processed."""
+        """Specific processor identifier."""
         pass
 
     @abstractmethod
     def _can_process(self, obj: ObjectVersion, **kwargs):
-        """Check if given file can be processed."""
-        print("here")
+        """Specific implementation of validation of file can be processed."""
         pass
 
     @abstractmethod
     def _process(self, obj: ObjectVersion, **kwargs):
-        """Process the file."""
+        """Specific implementation of file processing."""
         pass
