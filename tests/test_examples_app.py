@@ -26,7 +26,6 @@ def example_app():
     # Go to example directory
     project_dir = dirname(dirname(abspath(__file__)))
     exampleapp_dir = join(project_dir, 'examples')
-    print(exampleapp_dir)
 
     os.chdir(exampleapp_dir)
 

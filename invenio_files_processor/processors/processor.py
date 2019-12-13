@@ -18,12 +18,12 @@ from invenio_files_processor.errors import InvalidProcessor
 from invenio_files_processor.signals import file_processed
 
 
-class ProcessorInterface(ABC):
+class FilesProcessor(ABC):
     """Generic processor interface."""
 
     def process(self, obj: ObjectVersion, **kwargs):
         """Process the file."""
-        ProcessorInterface.check_valid_file(obj)
+        FilesProcessor.check_valid_file(obj)
 
         if not self._can_process(obj=obj, **kwargs):
             raise InvalidProcessor(self.id(), obj.basename)

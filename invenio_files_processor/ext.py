@@ -10,7 +10,7 @@
 
 from __future__ import absolute_import, print_function
 
-import pkg_resources
+from pkg_resources import iter_entry_points
 
 from invenio_files_processor.errors import DuplicatedProcessor, \
     UnsupportedProcessor
@@ -41,7 +41,7 @@ class _InvenioFilesProcessorState(object):
 
     def _load_entry_point_group(self, entry_point_group):
         """Load processors from an entry point group."""
-        for ep in pkg_resources.iter_entry_points(group=entry_point_group):
+        for ep in iter_entry_points(group=entry_point_group):
             self.register_processor(ep.name, ep.load())
 
     def register_processor(self, name, processor):
@@ -50,12 +50,18 @@ class _InvenioFilesProcessorState(object):
             raise DuplicatedProcessor(name)
         self.processors[name] = processor()
 
-    def get_processor(self, processor_name=None):
+    def unregister_processor(self, name):
+        """Register a processor."""
+        if name not in self.processors:
+            raise UnsupportedProcessor(name)
+        del self.processors[name]
+
+    def get_processor(self, name=None):
         """Get processor."""
         try:
-            return self.processors[processor_name]
+            return self.processors[name]
         except KeyError:
-            raise UnsupportedProcessor(processor_name)
+            raise UnsupportedProcessor(name)
 
 
 class InvenioFilesProcessor(object):

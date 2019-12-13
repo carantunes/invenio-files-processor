@@ -25,6 +25,7 @@ tests_require = [
     'pytest-cov>=2.5.1',
     'pytest-pycodestyle>=2.0.0',
     'pytest-invenio>=1.0.5',
+    'mock>=3.0.5',
 ]
 
 extras_require = {
