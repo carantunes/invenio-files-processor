@@ -35,11 +35,10 @@ extras_require = {
     ],
     # tika processor
     'tika': [
-        # 'tika>=1.22',
-
-        # TODO: replace after
-        #  https://github.com/chrismattmann/tika-python/pull/240 is merged
-        'tika @ git+https://github.com/prough21/tika-python@5cf3452887b2a0a181387548d360d3503f6713dc#egg=tika'
+        # 'tika>=1.24',
+        # TODO: uncomment after
+        #  https://github.com/chrismattmann/tika-python/pull/240 is released
+        # 'tika @ git+https://github.com/prough21/tika-python@5cf3452887b2a0a181387548d360d3503f6713dc#egg=tika'
     ],
     'tests': tests_require,
     'all': [
@@ -89,8 +88,7 @@ setup(
             'invenio_files_processor:InvenioFilesProcessor',
         ],
         'invenio_files_processor': [
-            f'{ProcessorRegistry.Tika} = '
-            f'invenio_files_processor.processors.tika:TikaProcessor'
+            '{tika} = invenio_files_processor.processors.tika:TikaProcessor'.format(tika=ProcessorRegistry.Tika)
         ]
     },
     extras_require=extras_require,
@@ -110,4 +108,7 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Development Status :: 1 - Planning',
     ],
+    # TODO: remove after
+    #  https://github.com/chrismattmann/tika-python/pull/240 is released
+    dependency_links=['https://github.com/prough21/tika-python/tarball/master#egg=tika']
 )
