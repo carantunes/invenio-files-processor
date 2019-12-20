@@ -14,13 +14,12 @@ import pytest
 from flask import Flask
 from invenio_files_rest.models import ObjectVersion
 from mock import patch
-
-from invenio_files_processor.processors.processor import FilesProcessor
 from tests.mock_module.processors import DummyProcessor
 
 from invenio_files_processor import InvenioFilesProcessor
 from invenio_files_processor.errors import DuplicatedProcessor, \
     InvalidProcessor, UnsupportedProcessor
+from invenio_files_processor.processors.processor import FilesProcessor
 from invenio_files_processor.processors.tika import TikaProcessor
 from invenio_files_processor.proxies import current_processors
 

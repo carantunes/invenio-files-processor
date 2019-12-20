@@ -12,7 +12,7 @@ import os
 
 from setuptools import find_packages, setup
 
-from invenio_files_processor.processors.tika import TikaProcessor
+from invenio_files_processor.processors.registry import ProcessorRegistry
 
 readme = open('README.rst').read()
 history = open('CHANGES.rst').read()
@@ -26,6 +26,7 @@ tests_require = [
     'pytest-pycodestyle>=2.0.0',
     'pytest-invenio>=1.0.5',
     'mock>=3.0.5',
+    'invenio-db>=1.0.4'
 ]
 
 extras_require = {
@@ -42,7 +43,6 @@ extras_require = {
     ],
     'tests': tests_require,
     'all': [
-        'invenio-files-rest>=1.0.6'
     ]
 }
 
@@ -56,7 +56,8 @@ setup_requires = [
 
 install_requires = [
     'Flask-BabelEx>=0.9.3',
-    'blinker>=1.4'
+    'blinker>=1.4',
+    'invenio-files-rest>=1.0.6'
 ]
 
 packages = find_packages()
@@ -88,7 +89,7 @@ setup(
             'invenio_files_processor:InvenioFilesProcessor',
         ],
         'invenio_files_processor': [
-            f'{TikaProcessor.id()} = '
+            f'{ProcessorRegistry.Tika} = '
             f'invenio_files_processor.processors.tika:TikaProcessor'
         ]
     },

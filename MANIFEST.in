@@ -38,3 +38,6 @@ recursive-include examples *.py
 recursive-include examples *.sh
 recursive-include examples *.txt
 recursive-include tests *.py
+
+# added by check_manifest.py
+recursive-include invenio_files_processor *.py

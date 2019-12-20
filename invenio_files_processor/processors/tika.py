@@ -16,12 +16,12 @@ from tika import parser
 
 from invenio_files_processor.config import FILES_PROCESSOR_TIKA_SERVER_ENDPOINT
 from invenio_files_processor.processors.processor import FilesProcessor
+from invenio_files_processor.processors.registry import ProcessorRegistry
 
 # Tika configuration
 TIKA_SERVER_ENDPOINT = FILES_PROCESSOR_TIKA_SERVER_ENDPOINT
 TIKA_CLIENT_ONLY = True
 READ_MODE_BINARY = 'rb'
-PROCESSOR_ID = 'tika'
 
 
 class TikaProcessor(FilesProcessor):
@@ -30,7 +30,7 @@ class TikaProcessor(FilesProcessor):
     @staticmethod
     def id():
         """Tika identifier."""
-        return PROCESSOR_ID
+        return ProcessorRegistry.Tika
 
     def _can_process(self, obj: ObjectVersion, **kwargs):
         """Check if given file can be processed."""

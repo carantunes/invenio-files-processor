@@ -10,11 +10,17 @@
 
 from __future__ import absolute_import, print_function
 
+from enum import Enum
+
 from invenio_files_rest.models import FileInstance, ObjectVersion
 
 from invenio_files_processor.processors.processor import FilesProcessor
 
-PROCESSOR_ID = 'dummy'
+
+class TestRegistry(Enum):
+    """Test Registry."""
+
+    Dummy = 'dummy'
 
 
 class DummyProcessor(FilesProcessor):
@@ -23,7 +29,7 @@ class DummyProcessor(FilesProcessor):
     @staticmethod
     def id():
         """Dummy identifier."""
-        return PROCESSOR_ID
+        return TestRegistry.Dummy
 
     def _can_process(self, obj: ObjectVersion, **kwargs):
         """Check if given file can be processed."""
