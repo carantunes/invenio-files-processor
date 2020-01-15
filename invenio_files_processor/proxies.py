@@ -22,6 +22,4 @@ def _get_current_processors():
 
 
 # noinspection PyTypeChecker
-current_processors: _InvenioFilesProcessorState = LocalProxy(
-    _get_current_processors
-)
+current_processors = LocalProxy(_get_current_processors)  # type:  _InvenioFilesProcessorState
