@@ -22,7 +22,7 @@ class DuplicatedProcessor(ProcessorError):
 
     def __str__(self):
         """Return description."""
-        return f"Processor {self.processor} is already registered."
+        return "Processor {} is already registered.".format(self.processor)
 
 
 class UnsupportedProcessor(ProcessorError):
@@ -30,7 +30,7 @@ class UnsupportedProcessor(ProcessorError):
 
     def __str__(self):
         """Return description."""
-        return f"Processor {self.processor} is not supported."
+        return "Processor {} is not supported.".format(self.processor)
 
 
 class InvalidProcessor(ProcessorError):
@@ -43,5 +43,7 @@ class InvalidProcessor(ProcessorError):
 
     def __str__(self):
         """Return description."""
-        return f"Processor {self.processor} " \
-               f"can't be applied to file {self.file}."
+        return "Processor {id} can't be applied to file {file}.".format(
+            id=self.processor,
+            file=self.file
+        )
