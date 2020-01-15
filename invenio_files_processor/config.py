@@ -8,4 +8,4 @@
 
 """Invenio module for files' processing and or transforming."""
 
-FILES_PROCESSOR_TIKA_SERVER_ENDPOINT = 'https://localhost:9998'
+FILES_PROCESSOR_TIKA_SERVER_ENDPOINT = 'http://localhost:9998'

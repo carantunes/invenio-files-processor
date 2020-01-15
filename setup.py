@@ -35,10 +35,10 @@ extras_require = {
     ],
     # tika processor
     'tika': [
-        # 'tika>=1.24',
+        # 'tika==1.24',
         # TODO: uncomment after
         #  https://github.com/chrismattmann/tika-python/pull/240 is released
-        # 'tika @ git+https://github.com/prough21/tika-python@5cf3452887b2a0a181387548d360d3503f6713dc#egg=tika'
+        'tika @ git+https://github.com/prough21/tika-python@5cf3452887b2a0a181387548d360d3503f6713dc#egg=tika'
     ],
     'tests': tests_require,
     'all': [
@@ -56,7 +56,7 @@ setup_requires = [
 install_requires = [
     'Flask-BabelEx>=0.9.3',
     'blinker>=1.4',
-    'invenio-files-rest>=1.0.6'
+    'invenio-files-rest>=1.0.6',
 ]
 
 packages = find_packages()
@@ -88,7 +88,8 @@ setup(
             'invenio_files_processor:InvenioFilesProcessor',
         ],
         'invenio_files_processor': [
-            '{tika} = invenio_files_processor.processors.tika:TikaProcessor'.format(tika=ProcessorRegistry.Tika)
+            '{tika} = invenio_files_processor.processors.tika:TikaProcessor'.
+            format(tika=ProcessorRegistry.Tika.value)
         ]
     },
     extras_require=extras_require,
@@ -108,7 +109,4 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Development Status :: 1 - Planning',
     ],
-    # TODO: remove after
-    #  https://github.com/chrismattmann/tika-python/pull/240 is released
-    dependency_links=['https://github.com/prough21/tika-python/tarball/master#egg=tika']
 )

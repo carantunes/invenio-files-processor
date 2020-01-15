@@ -15,13 +15,18 @@ fixtures are available.
 from __future__ import absolute_import, print_function
 
 import os
+import shutil
+import tempfile
 
 import pytest
 from flask import Flask
+from invenio_db import db as db_, InvenioDB
+from invenio_db.utils import drop_alembic_version_table
 from invenio_files_rest import InvenioFilesREST
-from invenio_files_rest.models import Bucket, ObjectVersion
+from invenio_files_rest.models import Bucket, ObjectVersion, Location
 from pkg_resources import EntryPoint
 from six import BytesIO
+from sqlalchemy_utils import create_database, database_exists
 from tests.mock_module.processors import DummyProcessor, TestRegistry
 
 from invenio_files_processor import InvenioFilesProcessor
@@ -43,6 +48,7 @@ def app():
         SECRET_KEY='TEST_SECRET_KEY',
     )
 
+    InvenioDB(app)
     InvenioFilesREST(app)
     InvenioFilesProcessor(app)
 
@@ -78,7 +84,7 @@ def mock_iter_entry_points_factory(data, mocked_group):
 def processor_entrypoints():
     """Entrypoint fixture."""
     eps = []
-    event_type_name = TestRegistry.Dummy
+    event_type_name = TestRegistry.Dummy.value
     entrypoint = EntryPoint(event_type_name, event_type_name)
     entrypoint.load = lambda: lambda: DummyProcessor
     eps.append(entrypoint)
@@ -86,17 +92,47 @@ def processor_entrypoints():
     return mock_iter_entry_points_factory(eps, 'invenio_files_processor')
 
 
+@pytest.yield_fixture()
+def db(app):
+    """Get setup database."""
+    if not database_exists(str(db_.engine.url)):
+        create_database(str(db_.engine.url))
+    db_.create_all()
+    yield db_
+    db_.session.remove()
+    db_.drop_all()
+    drop_alembic_version_table()
+
+
+@pytest.yield_fixture()
+def dummy_location(db):
+    """File system location."""
+    tmppath = tempfile.mkdtemp()
+
+    loc = Location(
+        name='testloc',
+        uri=tmppath,
+        default=True
+    )
+    db.session.add(loc)
+    db.session.commit()
+
+    yield loc
+
+    shutil.rmtree(tmppath)
+
+
 @pytest.fixture()
-def bucket(database, location):
+def bucket(db, dummy_location):
     """File system location."""
     b1 = Bucket.create()
     b1.id = '00000000-0000-0000-0000-000000000000'
-    database.session.commit()
+    db.session.commit()
     return b1
 
 
 @pytest.fixture()
-def objects(database, bucket):
+def objects(db, bucket):
     """Multipart object."""
     content = b'some content'
     obj = ObjectVersion.create(
@@ -105,5 +141,5 @@ def objects(database, bucket):
         stream=BytesIO(content),
         size=len(content)
     )
-    database.session.commit()
+    db.session.commit()
     return obj

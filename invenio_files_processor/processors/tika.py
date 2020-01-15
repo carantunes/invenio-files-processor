@@ -30,7 +30,7 @@ class TikaProcessor(FilesProcessor):
     @staticmethod
     def id():
         """Tika identifier."""
-        return ProcessorRegistry.Tika
+        return ProcessorRegistry.Tika.value
 
     def _can_process(self, obj: ObjectVersion, **kwargs):
         """Check if given file can be processed."""

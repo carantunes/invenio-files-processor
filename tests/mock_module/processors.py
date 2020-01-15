@@ -29,7 +29,7 @@ class DummyProcessor(FilesProcessor):
     @staticmethod
     def id():
         """Dummy identifier."""
-        return TestRegistry.Dummy
+        return TestRegistry.Dummy.value
 
     def _can_process(self, obj: ObjectVersion, **kwargs):
         """Check if given file can be processed."""
