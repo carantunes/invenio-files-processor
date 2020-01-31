@@ -10,17 +10,15 @@
 
 from __future__ import absolute_import, print_function
 
+from flask import current_app
 from invenio_files_rest.models import FileInstance, ObjectVersion
 from invenio_files_rest.storage import FileStorage
 from tika import parser
 
-from invenio_files_processor.config import FILES_PROCESSOR_TIKA_SERVER_ENDPOINT
 from invenio_files_processor.processors.processor import FilesProcessor
 from invenio_files_processor.processors.registry import ProcessorRegistry
 
 # Tika configuration
-TIKA_SERVER_ENDPOINT = FILES_PROCESSOR_TIKA_SERVER_ENDPOINT
-TIKA_CLIENT_ONLY = True
 READ_MODE_BINARY = 'rb'
 
 
@@ -42,4 +40,4 @@ class TikaProcessor(FilesProcessor):
         storage = file.storage(**kwargs)  # type: FileStorage
         fp = storage.open(mode=READ_MODE_BINARY)
 
-        return parser.from_file(fp)
+        return parser.from_file(fp, current_app.config['FILES_PROCESSOR_TIKA_SERVER_ENDPOINT'])
