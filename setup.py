@@ -35,10 +35,7 @@ extras_require = {
     ],
     # tika processor
     'tika': [
-        # 'tika==1.24',
-        # TODO: uncomment after
-        #  https://github.com/chrismattmann/tika-python/pull/240 is released
-        'tika @ git+https://github.com/prough21/tika-python@5cf3452887b2a0a181387548d360d3503f6713dc#egg=tika'
+        'tika==1.23.1',
     ],
     'tests': tests_require,
     'all': [
