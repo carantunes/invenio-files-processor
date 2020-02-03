@@ -40,7 +40,12 @@ class TikaProcessor(FilesProcessor):
         storage = file.storage(**kwargs)  # type: FileStorage
         fp = storage.open(mode=READ_MODE_BINARY)
 
-        return parser.from_file(
-            fp,
-            current_app.config['FILES_PROCESSOR_TIKA_SERVER_ENDPOINT']
-        )
+        try:
+            result = parser.from_file(
+                fp,
+                current_app.config['FILES_PROCESSOR_TIKA_SERVER_ENDPOINT']
+            )
+        finally:
+            fp.close()
+
+        return result
