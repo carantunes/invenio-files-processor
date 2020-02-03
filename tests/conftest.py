@@ -20,10 +20,11 @@ import tempfile
 
 import pytest
 from flask import Flask
-from invenio_db import db as db_, InvenioDB
+from invenio_db import InvenioDB
+from invenio_db import db as db_
 from invenio_db.utils import drop_alembic_version_table
 from invenio_files_rest import InvenioFilesREST
-from invenio_files_rest.models import Bucket, ObjectVersion, Location
+from invenio_files_rest.models import Bucket, Location, ObjectVersion
 from pkg_resources import EntryPoint
 from six import BytesIO
 from sqlalchemy_utils import create_database, database_exists
