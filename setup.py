@@ -84,6 +84,10 @@ setup(
             'invenio_files_processor = '
             'invenio_files_processor:InvenioFilesProcessor',
         ],
+        'invenio_base.api_apps': [
+            'invenio_files_processor = '
+            'invenio_files_processor:InvenioFilesProcessor',
+        ],
         'invenio_files_processor': [
             '{tika} = invenio_files_processor.processors.tika:TikaProcessor'.
             format(tika=ProcessorRegistry.Tika.value)
