@@ -32,7 +32,7 @@ class TikaProcessor(FilesProcessor):
 
     def _can_process(self, obj: ObjectVersion, **kwargs):
         """Check if given file can be processed."""
-        return True
+        return obj.file.readable
 
     def _process(self, obj: ObjectVersion, **kwargs):
         """Process the file with Tika."""
