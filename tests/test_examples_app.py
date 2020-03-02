@@ -57,6 +57,5 @@ def test_example_app_process_tika(example_app):
     cmd = 'curl http://0.0.0.0:5000/process/tika/sample.pdf'
     output = json.loads(
         subprocess.check_output(cmd, shell=True).decode('utf-8'))
-    assert output['status'] == HTTPStatus.OK
     assert 'metadata' in output
     assert 'content' in output

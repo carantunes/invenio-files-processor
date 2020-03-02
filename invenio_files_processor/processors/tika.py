@@ -13,7 +13,7 @@ from __future__ import absolute_import, print_function
 from flask import current_app
 from invenio_files_rest.models import FileInstance, ObjectVersion
 from invenio_files_rest.storage import FileStorage
-from tika import parser
+from tika import unpack
 
 from invenio_files_processor.processors.processor import FilesProcessor
 from invenio_files_processor.processors.registry import ProcessorRegistry
@@ -40,10 +40,14 @@ class TikaProcessor(FilesProcessor):
         storage = file.storage(**kwargs)  # type: FileStorage
         fp = storage.open(mode=READ_MODE_BINARY)
 
+        server_url = current_app.config['FILES_PROCESSOR_TIKA_SERVER_ENDPOINT']
+        req_opts = current_app.config['FILES_PROCESSOR_TIKA_REQUEST_OPTIONS']
+
         try:
-            result = parser.from_file(
+            result = unpack.from_file(
                 fp,
-                current_app.config['FILES_PROCESSOR_TIKA_SERVER_ENDPOINT']
+                serverEndpoint=server_url,
+                requestOptions=req_opts,
             )
         finally:
             fp.close()

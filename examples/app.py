@@ -84,11 +84,10 @@ def allow_all(*args, **kwargs):
 
 def file_processed_action(app, processor_id: str, file: ObjectVersion, data):
     current_app.logger.info(
-        "Processor {id} finished processing file {file} with status {status}".
+        "Processor {id} finished processing file {file}".
         format(
             id=processor_id,
-            file=file,
-            status=data['status']
+            file=file
         )
     )
 

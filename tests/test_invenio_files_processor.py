@@ -139,4 +139,3 @@ def test_processors(app, objects):
 
         assert 'metadata' in output
         assert 'content' in output
-        assert 'status' in output

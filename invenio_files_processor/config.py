@@ -6,6 +6,7 @@
 # modify it under the terms of the MIT License; see LICENSE file for more
 # details.
 
-"""Invenio module for files' processing and or transforming."""
+"""Processors configuration."""
 
 FILES_PROCESSOR_TIKA_SERVER_ENDPOINT = 'http://localhost:9998'
+FILES_PROCESSOR_TIKA_REQUEST_OPTIONS = {'timeout': 60}
