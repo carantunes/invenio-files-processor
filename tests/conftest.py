@@ -17,6 +17,7 @@ from __future__ import absolute_import, print_function
 import os
 import shutil
 import tempfile
+from io import BytesIO
 
 import pytest
 from flask import Flask
@@ -26,7 +27,6 @@ from invenio_db.utils import drop_alembic_version_table
 from invenio_files_rest import InvenioFilesREST
 from invenio_files_rest.models import Bucket, Location, ObjectVersion
 from pkg_resources import EntryPoint
-from six import BytesIO
 from sqlalchemy_utils import create_database, database_exists
 from tests.mock_module.processors import DummyProcessor, TestRegistry
 
