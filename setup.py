@@ -107,6 +107,6 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
-        'Development Status :: 1 - Planning',
+        'Development Status :: 3 - Alpha',
     ],
 )
