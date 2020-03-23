@@ -35,7 +35,7 @@ extras_require = {
     ],
     # tika processor
     'tika': [
-        'tika==1.23.1',
+        'tika==1.24',
     ],
     'tests': tests_require,
     'all': [
