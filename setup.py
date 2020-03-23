@@ -19,14 +19,14 @@ history = open('CHANGES.rst').read()
 
 tests_require = [
     'check-manifest>=0.25',
-    'coverage>=4.0',
+    'coverage>=5.0.3',
     'isort>=4.3.3',
     'pydocstyle>=2.0.0',
     'pytest-cov>=2.5.1',
     'pytest-pycodestyle>=2.0.0',
-    'pytest-invenio>=1.0.5',
+    'pytest-invenio>=1.2.1',
     'mock>=3.0.5',
-    'invenio-db>=1.0.4'
+    'invenio-db>=1.0.3'
 ]
 
 extras_require = {
@@ -45,13 +45,10 @@ extras_require = {
 for reqs in extras_require.values():
     extras_require['all'].extend(reqs)
 
-setup_requires = [
-    'Babel>=1.3',
-    'pytest-runner>=3.0.0',
-]
+setup_requires = ["Babel>=2.4.0", "pytest-runner>=3.0.0,<5"]
 
 install_requires = [
-    'Flask-BabelEx>=0.9.3',
+    'Flask-BabelEx>=0.9.4',
     'blinker>=1.4',
     'invenio-files-rest>=1.0.6',
 ]
@@ -107,6 +104,8 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Development Status :: 3 - Alpha',
     ],
 )
