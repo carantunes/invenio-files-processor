@@ -10,9 +10,8 @@
 
 from pkg_resources import iter_entry_points
 
-from .errors import DuplicatedProcessor, UnsupportedProcessor
-
 from . import config
+from .errors import DuplicatedProcessor, UnsupportedProcessor
 
 
 class _InvenioFilesProcessorState(object):
