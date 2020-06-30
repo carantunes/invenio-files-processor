@@ -29,7 +29,7 @@ def test_signals(dummy_app, object_version):
     try:
         processor = current_processors.get_processor(name=DummyProcessor.id)
 
-        processor.process(obj=object_version)
+        processor.process(object_version=object_version)
 
         assert calls == ['file-processed']
     finally:

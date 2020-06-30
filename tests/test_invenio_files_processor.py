@@ -11,7 +11,6 @@
 import pytest
 from flask import Flask
 from mock import patch
-from tests.mock_module.processors import DummyProcessor
 
 from invenio_files_processor import InvenioFilesProcessor
 from invenio_files_processor.errors import DuplicatedProcessor, \
@@ -19,6 +18,7 @@ from invenio_files_processor.errors import DuplicatedProcessor, \
 from invenio_files_processor.processors.processor import FilesProcessor
 from invenio_files_processor.processors.tika.unpack import UnpackProcessor
 from invenio_files_processor.proxies import current_processors
+from tests.mock_module.processors import DummyProcessor
 
 
 def test_version():
@@ -80,12 +80,12 @@ def test_process(dummy_app, object_version):
 
     for case in test_cases:
         if case['exception'] is None:
-            processor.process(obj=case['obj'], can_process=case['can_process'])
+            processor.process(case['obj'], can_process=case['can_process'])
 
             continue
 
         with pytest.raises(case['exception']):
-            processor.process(obj=case['obj'], can_process=case['can_process'])
+            processor.process(case['obj'], can_process=case['can_process'])
 
 
 def test_register_unregister_processor(appctx):
@@ -130,7 +130,7 @@ def test_processors(base_app, object_version):
     for case in test_cases:
         print(case['processor'].id)
         processor = current_processors.get_processor(case['processor'].id)
-        output = processor.process(obj=case['input'])
+        output = processor.process(object_version=case['input'])
 
         assert 'metadata' in output
         assert 'content' in output

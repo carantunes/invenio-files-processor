@@ -21,24 +21,23 @@ from ..signals import file_processed
 class FilesProcessor(ABC):
     """Generic processor interface."""
 
-    def process(self, obj, **kwargs):
+    def process(self, object_version, **kwargs):
         """Process the file.
 
-        :param obj: ObjectVersion file input
+        :param object_version: ObjectVersion file input
         :return: Processing result
         """
-        print(obj)
-        self.check_valid_file(obj)
+        self.check_valid_file(object_version)
 
-        if not self.can_process(obj=obj, **kwargs):
-            raise InvalidProcessor(self.id, obj.basename)
+        if not self.can_process(object_version=object_version, **kwargs):
+            raise InvalidProcessor(self.id, object_version.basename)
 
-        data = self.process_file(obj=obj, **kwargs)
+        data = self.process_file(object_version=object_version, **kwargs)
 
         file_processed.send(
             current_app._get_current_object(),
             processor_id=self.id,
-            file=obj,
+            file=object_version,
             data=data,
         )
 
@@ -46,7 +45,7 @@ class FilesProcessor(ABC):
 
     @staticmethod
     def check_valid_file(obj):
-        """Check if file is valid."
+        """Check if file is valid.
 
         :param obj: ObjectVersion file input
         """
@@ -65,17 +64,17 @@ class FilesProcessor(ABC):
         pass
 
     @abstractmethod
-    def can_process(self, obj, **kwargs):
+    def can_process(self, object_version, **kwargs):
         """Specific implementation of validation of file can be processed.
 
-        :param obj: ObjectVersion file input
+        :param object_version: ObjectVersion file input
         """
         pass
 
     @abstractmethod
-    def process_file(self, obj, **kwargs):
+    def process_file(self, object_version, **kwargs):
         """Specific implementation of file processing.
 
-        :param obj: ObjectVersion file input
+        :param object_version: ObjectVersion file input
         """
         pass

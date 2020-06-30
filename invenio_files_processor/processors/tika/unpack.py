@@ -21,13 +21,13 @@ class UnpackProcessor(FilesProcessor):
 
     id = 'tika_unpack'
 
-    def can_process(self, obj, **kwargs):
+    def can_process(self, object_version, **kwargs):
         """Check if given file can be processed."""
-        return obj.file.readable
+        return object_version.file.readable
 
-    def process_file(self, obj, **kwargs):
+    def process_file(self, object_version, **kwargs):
         """Process the file with Tika."""
-        fp = obj.file.storage(**kwargs).open(mode=READ_MODE_BINARY)
+        fp = object_version.file.storage(**kwargs).open(mode=READ_MODE_BINARY)
 
         server_url = current_app.config['FILES_PROCESSOR_TIKA_SERVER_ENDPOINT']
         req_opts = current_app.config['FILES_PROCESSOR_TIKA_REQUEST_OPTIONS']
