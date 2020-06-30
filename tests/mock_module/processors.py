@@ -18,14 +18,14 @@ class DummyProcessor(FilesProcessor):
 
     id = 'dummy'
 
-    def _can_process(self, obj: ObjectVersion, **kwargs):
+    def can_process(self, obj, **kwargs):
         """Check if given file can be processed."""
         can_process = kwargs.get('can_process',  True)
 
         return can_process
 
-    def _process(self, obj: ObjectVersion, **kwargs):
+    def process_file(self, obj, **kwargs):
         """Process the file with Dummy."""
-        file = obj.file  # type: FileInstance
+        file = obj.file
 
         return dict(content="dummy")

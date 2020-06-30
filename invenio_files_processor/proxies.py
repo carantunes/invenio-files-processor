@@ -11,15 +11,10 @@
 from flask import current_app
 from werkzeug.local import LocalProxy
 
-from .ext import _InvenioFilesProcessorState
-
 
 def _get_current_processors():
     """Return current state of the processors extension."""
     return current_app.extensions['invenio-files-processor']
 
 
-# noinspection PyTypeChecker
-current_processors = LocalProxy(
-    _get_current_processors
-)  # type: _InvenioFilesProcessorState
+current_processors = LocalProxy(_get_current_processors)
