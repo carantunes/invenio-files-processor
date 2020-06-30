@@ -14,8 +14,8 @@ from os import strerror
 from flask import current_app
 from invenio_files_rest.models import FileInstance, ObjectVersion
 
-from invenio_files_processor.errors import InvalidProcessor
-from invenio_files_processor.signals import file_processed
+from ..errors import InvalidProcessor
+from ..signals import file_processed
 
 
 class FilesProcessor(ABC):

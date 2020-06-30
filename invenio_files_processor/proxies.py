@@ -11,7 +11,7 @@
 from flask import current_app
 from werkzeug.local import LocalProxy
 
-from invenio_files_processor.ext import _InvenioFilesProcessorState
+from .ext import _InvenioFilesProcessorState
 
 
 def _get_current_processors():

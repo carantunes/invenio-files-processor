@@ -13,7 +13,7 @@ from invenio_files_rest.models import FileInstance, ObjectVersion
 from invenio_files_rest.storage import FileStorage
 from tika import unpack
 
-from invenio_files_processor.processors.processor import FilesProcessor
+from ..processor import FilesProcessor
 
 # Tika configuration
 READ_MODE_BINARY = 'rb'

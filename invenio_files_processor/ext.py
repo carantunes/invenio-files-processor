@@ -10,8 +10,7 @@
 
 from pkg_resources import iter_entry_points
 
-from invenio_files_processor.errors import DuplicatedProcessor, \
-    UnsupportedProcessor
+from .errors import DuplicatedProcessor, UnsupportedProcessor
 
 from . import config
 
