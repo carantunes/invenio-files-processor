@@ -23,16 +23,16 @@ class FilesProcessor(ABC):
 
     def process(self, obj: ObjectVersion, **kwargs):
         """Process the file."""
-        FilesProcessor.check_valid_file(obj)
+        self.check_valid_file(obj)
 
         if not self._can_process(obj=obj, **kwargs):
-            raise InvalidProcessor(self.id(), obj.basename)
+            raise InvalidProcessor(self.id, obj.basename)
 
         data = self._process(obj=obj, **kwargs)
 
         file_processed.send(
             current_app._get_current_object(),
-            processor_id=self.id(),
+            processor_id=self.id,
             file=obj,
             data=data,
         )
@@ -50,9 +50,9 @@ class FilesProcessor(ABC):
         if not is_valid:
             raise FileNotFoundError(errno.ENOENT, strerror(errno.ENOENT))
 
-    @staticmethod
+    @property
     @abstractmethod
-    def id():
+    def id(self):
         """Specific processor identifier."""
         pass
 

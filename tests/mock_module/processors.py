@@ -16,10 +16,7 @@ from invenio_files_processor.processors.processor import FilesProcessor
 class DummyProcessor(FilesProcessor):
     """Dummy processor."""
 
-    @staticmethod
-    def id():
-        """Dummy identifier."""
-        return 'dummy'
+    id = 'dummy'
 
     def _can_process(self, obj: ObjectVersion, **kwargs):
         """Check if given file can be processed."""

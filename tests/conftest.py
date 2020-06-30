@@ -59,7 +59,7 @@ def app():
 def dummy_app(app):
     """Dummy application fixture."""
     current_processors.register_processor(
-        DummyProcessor.id(),
+        DummyProcessor.id,
         DummyProcessor,
     )
 
@@ -83,7 +83,7 @@ def mock_iter_entry_points_factory(data, mocked_group):
 def processor_entrypoints():
     """Entrypoint fixture."""
     eps = []
-    event_type_name = DummyProcessor.id()
+    event_type_name = DummyProcessor.id
     entrypoint = EntryPoint(event_type_name, event_type_name)
     entrypoint.load = lambda: lambda: DummyProcessor
     eps.append(entrypoint)

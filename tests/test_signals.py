@@ -21,19 +21,19 @@ def test_signals(dummy_app, objects):
     calls = []
 
     def file_processed_listener(app, processor_id, file, data):
-        assert processor_id == DummyProcessor.id()
+        assert processor_id == DummyProcessor.id
         assert obj == file
         assert data['content'] == 'dummy'
 
-        calls.append("file-processed")
+        calls.append('file-processed')
 
     file_processed.connect(file_processed_listener, weak=False)
 
     try:
-        processor = current_processors.get_processor(name=DummyProcessor.id())
+        processor = current_processors.get_processor(name=DummyProcessor.id)
 
         processor.process(obj=obj)
 
-        assert calls == ["file-processed"]
+        assert calls == ['file-processed']
     finally:
         file_processed.disconnect(file_processed_listener)

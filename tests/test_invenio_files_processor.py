@@ -57,7 +57,7 @@ def test_load_entry_point_group(processor_entrypoints):
 def test_process(dummy_app, objects):
     """Test process."""
     obj = ObjectVersion.get('00000000-0000-0000-0000-000000000000', 'test.pdf')
-    processor = current_processors.get_processor(name=DummyProcessor.id())
+    processor = current_processors.get_processor(name=DummyProcessor.id)
 
     test_cases = [
         dict(
@@ -93,25 +93,25 @@ def test_process(dummy_app, objects):
 def test_register_unregister_processor(app):
     """Test register and unregister processor flow."""
     current_processors.register_processor(
-        DummyProcessor.id(),
+        DummyProcessor.id,
         DummyProcessor,
     )
 
     with pytest.raises(DuplicatedProcessor):
         current_processors.register_processor(
-            DummyProcessor.id(),
+            DummyProcessor.id,
             DummyProcessor,
         )
 
-    current_processors.unregister_processor(DummyProcessor.id())
+    current_processors.unregister_processor(DummyProcessor.id)
 
     with pytest.raises(UnsupportedProcessor):
-        current_processors.get_processor(DummyProcessor.id())
+        current_processors.get_processor(DummyProcessor.id)
 
 
 def test_get_processor(dummy_app):
     """Test register processor."""
-    processor = current_processors.get_processor(name=DummyProcessor.id())
+    processor = current_processors.get_processor(name=DummyProcessor.id)
     assert isinstance(processor, FilesProcessor)
 
     with pytest.raises(UnsupportedProcessor):
@@ -124,7 +124,7 @@ def test_processors(app, objects):
 
     test_cases = [
         dict(
-            name="Tika Processor",
+            name="Unpack Processor",
             processor=UnpackProcessor,
             input=obj,
             expected="tika.output.json"
@@ -132,7 +132,8 @@ def test_processors(app, objects):
     ]
 
     for case in test_cases:
-        processor = current_processors.get_processor(case['processor'].id())
+        print(case['processor'].id)
+        processor = current_processors.get_processor(case['processor'].id)
         output = processor.process(obj=case['input'])
 
         assert 'metadata' in output

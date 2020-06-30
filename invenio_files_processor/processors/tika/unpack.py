@@ -22,10 +22,7 @@ READ_MODE_BINARY = 'rb'
 class UnpackProcessor(FilesProcessor):
     """Tika processor."""
 
-    @staticmethod
-    def id():
-        """Tika identifier."""
-        return 'tika_unpack'
+    id = 'tika_unpack'
 
     def _can_process(self, obj: ObjectVersion, **kwargs):
         """Check if given file can be processed."""
