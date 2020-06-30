@@ -12,8 +12,6 @@ import os
 
 from setuptools import find_packages, setup
 
-from invenio_files_processor.processors.registry import ProcessorRegistry
-
 readme = open('README.rst').read()
 history = open('CHANGES.rst').read()
 
@@ -67,7 +65,7 @@ setup(
     version=version,
     description=__doc__,
     long_description=readme + '\n\n' + history,
-    keywords='invenio TODO',
+    keywords='invenio files processor',
     license='MIT',
     author='CERN',
     author_email='info@inveniosoftware.org',
@@ -86,8 +84,8 @@ setup(
             'invenio_files_processor:InvenioFilesProcessor',
         ],
         'invenio_files_processor': [
-            '{tika} = invenio_files_processor.processors.tika:TikaProcessor'.
-            format(tika=ProcessorRegistry.Tika.value)
+            'tika_unpack = '
+            'invenio_files_processor.processors.tika.unpack:UnpackProcessor'
         ]
     },
     extras_require=extras_require,

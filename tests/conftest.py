@@ -28,10 +28,10 @@ from invenio_files_rest import InvenioFilesREST
 from invenio_files_rest.models import Bucket, Location, ObjectVersion
 from pkg_resources import EntryPoint
 from sqlalchemy_utils import create_database, database_exists
-from tests.mock_module.processors import DummyProcessor, TestRegistry
 
 from invenio_files_processor import InvenioFilesProcessor
 from invenio_files_processor.proxies import current_processors
+from tests.mock_module.processors import DummyProcessor
 
 
 @pytest.fixture()
@@ -85,7 +85,7 @@ def mock_iter_entry_points_factory(data, mocked_group):
 def processor_entrypoints():
     """Entrypoint fixture."""
     eps = []
-    event_type_name = TestRegistry.Dummy.value
+    event_type_name = DummyProcessor.id()
     entrypoint = EntryPoint(event_type_name, event_type_name)
     entrypoint.load = lambda: lambda: DummyProcessor
     eps.append(entrypoint)

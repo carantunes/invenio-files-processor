@@ -20,7 +20,7 @@ from invenio_files_processor import InvenioFilesProcessor
 from invenio_files_processor.errors import DuplicatedProcessor, \
     InvalidProcessor, UnsupportedProcessor
 from invenio_files_processor.processors.processor import FilesProcessor
-from invenio_files_processor.processors.tika import TikaProcessor
+from invenio_files_processor.processors.tika.unpack import UnpackProcessor
 from invenio_files_processor.proxies import current_processors
 
 
@@ -127,7 +127,7 @@ def test_processors(app, objects):
     test_cases = [
         dict(
             name="Tika Processor",
-            processor=TikaProcessor,
+            processor=UnpackProcessor,
             input=obj,
             expected="tika.output.json"
         ),

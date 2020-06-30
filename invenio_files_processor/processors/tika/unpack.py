@@ -16,19 +16,18 @@ from invenio_files_rest.storage import FileStorage
 from tika import unpack
 
 from invenio_files_processor.processors.processor import FilesProcessor
-from invenio_files_processor.processors.registry import ProcessorRegistry
 
 # Tika configuration
 READ_MODE_BINARY = 'rb'
 
 
-class TikaProcessor(FilesProcessor):
+class UnpackProcessor(FilesProcessor):
     """Tika processor."""
 
     @staticmethod
     def id():
         """Tika identifier."""
-        return ProcessorRegistry.Tika.value
+        return 'tika_unpack'
 
     def _can_process(self, obj: ObjectVersion, **kwargs):
         """Check if given file can be processed."""
