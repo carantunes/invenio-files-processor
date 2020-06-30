@@ -10,5 +10,4 @@ Contributors
 
 Invenio module for files' processing and or transforming.
 
-- CERN <info@inveniosoftware.org>
 - Carina Antunes
