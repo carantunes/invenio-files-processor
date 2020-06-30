@@ -8,8 +8,6 @@
 
 """Tika file processor."""
 
-from __future__ import absolute_import, print_function
-
 from flask import current_app
 from invenio_files_rest.models import FileInstance, ObjectVersion
 from invenio_files_rest.storage import FileStorage

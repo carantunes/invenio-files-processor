@@ -8,8 +8,6 @@
 
 """Invenio module for files' processing and or transforming."""
 
-from __future__ import absolute_import, print_function
-
 from pkg_resources import iter_entry_points
 
 from invenio_files_processor.errors import DuplicatedProcessor, \

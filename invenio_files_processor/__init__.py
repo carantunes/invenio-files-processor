@@ -8,8 +8,6 @@
 
 """Invenio module for files' processing and or transforming."""
 
-from __future__ import absolute_import, print_function
-
 from .ext import InvenioFilesProcessor
 from .version import __version__
 

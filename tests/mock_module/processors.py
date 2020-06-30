@@ -8,8 +8,6 @@
 
 """Dummy processor."""
 
-from __future__ import absolute_import, print_function
-
 from invenio_files_rest.models import FileInstance, ObjectVersion
 
 from invenio_files_processor.processors.processor import FilesProcessor
