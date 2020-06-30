@@ -24,8 +24,8 @@ tests_require = [
     'pytest-pycodestyle>=2.0.0',
     'pytest-invenio>=1.2.1',
     'mock>=3.0.5',
-    'invenio-db>=1.0.3',
-    'invenio-app>=1.0.4',
+    'invenio-db>=1.0.4',
+    'invenio-app>=1.2.3'
 ]
 
 extras_require = {

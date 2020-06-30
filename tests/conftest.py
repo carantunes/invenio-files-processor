@@ -88,6 +88,7 @@ def bucket(bucket_from_dir):
 
 @pytest.fixture()
 def object_version(database, bucket):
+    """Create ObjectVersion fixture."""
     file_from_bucket = ObjectVersion.get_by_bucket(bucket).one()
 
     yield file_from_bucket
