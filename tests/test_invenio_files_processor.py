@@ -10,7 +10,6 @@
 
 import pytest
 from flask import Flask
-from invenio_files_rest.models import ObjectVersion
 from mock import patch
 from tests.mock_module.processors import DummyProcessor
 
@@ -54,9 +53,8 @@ def test_load_entry_point_group(processor_entrypoints):
         assert set(current_processors.processors.keys()) == {'dummy'}
 
 
-def test_process(dummy_app, objects):
+def test_process(dummy_app, object_version):
     """Test process."""
-    obj = ObjectVersion.get('00000000-0000-0000-0000-000000000000', 'test.pdf')
     processor = current_processors.get_processor(name=DummyProcessor.id)
 
     test_cases = [
@@ -68,13 +66,13 @@ def test_process(dummy_app, objects):
         ),
         dict(
             name="Invalid Processor Case",
-            obj=obj,
+            obj=object_version,
             exception=InvalidProcessor,
             can_process=False
         ),
         dict(
             name="Valid Processor Case",
-            obj=obj,
+            obj=object_version,
             exception=None,
             can_process=True
         )
@@ -90,7 +88,7 @@ def test_process(dummy_app, objects):
             processor.process(obj=case['obj'], can_process=case['can_process'])
 
 
-def test_register_unregister_processor(app):
+def test_register_unregister_processor(appctx):
     """Test register and unregister processor flow."""
     current_processors.register_processor(
         DummyProcessor.id,
@@ -118,15 +116,13 @@ def test_get_processor(dummy_app):
         processor = current_processors.get_processor(name="invalid")
 
 
-def test_processors(app, objects):
+def test_processors(base_app, object_version):
     """Test process."""
-    obj = ObjectVersion.get('00000000-0000-0000-0000-000000000000', 'test.pdf')
-
     test_cases = [
         dict(
             name="Unpack Processor",
             processor=UnpackProcessor,
-            input=obj,
+            input=object_version,
             expected="tika.output.json"
         ),
     ]

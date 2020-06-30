@@ -27,6 +27,7 @@ class FilesProcessor(ABC):
         :param obj: ObjectVersion file input
         :return: Processing result
         """
+        print(obj)
         self.check_valid_file(obj)
 
         if not self.can_process(obj=obj, **kwargs):

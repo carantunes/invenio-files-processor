@@ -7,22 +7,19 @@
 # details.
 
 """Test file signals."""
-from invenio_files_rest.models import ObjectVersion
 from tests.mock_module.processors import DummyProcessor
 
 from invenio_files_processor.proxies import current_processors
 from invenio_files_processor.signals import file_processed
 
 
-def test_signals(dummy_app, objects):
+def test_signals(dummy_app, object_version):
     """Test file_processed signal."""
-    obj = ObjectVersion.get('00000000-0000-0000-0000-000000000000', 'test.pdf')
-
     calls = []
 
-    def file_processed_listener(app, processor_id, file, data):
+    def file_processed_listener(base_app, processor_id, file, data):
         assert processor_id == DummyProcessor.id
-        assert obj == file
+        assert object_version == file
         assert data['content'] == 'dummy'
 
         calls.append('file-processed')
@@ -32,7 +29,7 @@ def test_signals(dummy_app, objects):
     try:
         processor = current_processors.get_processor(name=DummyProcessor.id)
 
-        processor.process(obj=obj)
+        processor.process(obj=object_version)
 
         assert calls == ['file-processed']
     finally:
