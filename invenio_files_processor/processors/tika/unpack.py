@@ -7,10 +7,7 @@
 # details.
 
 """Tika file processor."""
-
 from flask import current_app
-from invenio_files_rest.models import FileInstance, ObjectVersion
-from invenio_files_rest.storage import FileStorage
 from tika import unpack
 
 from ..processor import FilesProcessor
