@@ -12,7 +12,6 @@ from tika import unpack
 
 from ..processor import FilesProcessor
 
-# Tika configuration
 READ_MODE_BINARY = 'rb'
 
 
