@@ -13,8 +13,11 @@ from flask import Flask
 from mock import patch
 
 from invenio_files_processor import InvenioFilesProcessor
-from invenio_files_processor.errors import DuplicatedProcessor, \
-    InvalidProcessor, UnsupportedProcessor
+from invenio_files_processor.errors import (
+    DuplicatedProcessor,
+    InvalidProcessor,
+    UnsupportedProcessor,
+)
 from invenio_files_processor.processors.processor import FilesProcessor
 from invenio_files_processor.processors.tika.unpack import UnpackProcessor
 from invenio_files_processor.proxies import current_processors
@@ -43,14 +46,16 @@ def test_init():
 def test_load_entry_point_group(processor_entrypoints):
     """Test entry point loading."""
     with patch(
-        'invenio_files_processor.ext.iter_entry_points',
+        'invenio_files_processor.ext.entry_points',
         return_value=processor_entrypoints('invenio_files_processor')
     ):
         app = Flask('testapp')
         InvenioFilesProcessor(app)
-        app.app_context().push()
 
-        assert set(current_processors.processors.keys()) == {'dummy'}
+        # a pushed-and-never-popped context leaks into every later test, whose
+        # current_app would then be this bare Flask app rather than the fixture's
+        with app.app_context():
+            assert set(current_processors.processors.keys()) == {'dummy'}
 
 
 def test_process(dummy_app, object_version):

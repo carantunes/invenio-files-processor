@@ -8,7 +8,7 @@
 
 """Invenio module for files' processing and or transforming."""
 
-from pkg_resources import iter_entry_points
+from invenio_base.utils import entry_points
 
 from . import config
 from .errors import DuplicatedProcessor, UnsupportedProcessor
@@ -37,7 +37,7 @@ class _InvenioFilesProcessorState(object):
 
     def _load_entry_point_group(self, entry_point_group):
         """Load processors from an entry point group."""
-        for ep in iter_entry_points(group=entry_point_group):
+        for ep in entry_points(group=entry_point_group):
             self.register_processor(ep.name, ep.load())
 
     def register_processor(self, name, processor):
