@@ -18,10 +18,11 @@ Version 1.0.0 (released TBD)
 - Move packaging from ``setup.py`` to ``pyproject.toml`` using hatchling.
   ``setup.cfg``, ``MANIFEST.in`` and ``pytest.ini`` are removed, their settings
   folded into ``pyproject.toml``.
-- Require ``invenio-files-rest>=6.0.0``, and Python 3.9 or later.
+- Require ``invenio-files-rest>=6.0.0``.
 - Remove the ``Flask-BabelEx`` dependency. It was declared but never imported,
   and the package ships no translation catalogs. ``babel.ini`` is removed with it.
-
+- Raise ``requires-python`` to 3.10, and widen the ``tika`` extra from a pin
+  on ``1.24`` to ``>=3.1.0,<4.0.0``.
 
 Version 0.1.0 (Dec 4, 2020)
 
